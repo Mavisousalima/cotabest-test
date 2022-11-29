@@ -43,7 +43,7 @@ product_router = APIRouter(
              
 def create_product(product: ProductCreate, db: Session = Depends(get_db)):
     product = create_product_view(product.name, product.price, product.minimun, product.amount_per_package, product.max_availability, db)
-    return {"message": f"Product {product.name} created successfully"}
+    return product
 
 @product_router.get("/info",
              status_code=status.HTTP_200_OK,
@@ -107,7 +107,7 @@ def get_product(product_name: str, db: Session = Depends(get_db)):
                })
 def delete_product(product: int, db: Session = Depends(get_db)):
     product = delete_product_view(product, db)
-    return {"message": f"Product {product.name} deleted successfully"}
+    return {"message": "Product deleted successfully"}
 
 
 @product_router.get("/list",
