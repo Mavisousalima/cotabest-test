@@ -4,10 +4,10 @@ To run this project follow the steps bellow:
 
 ```bash
 # Clone this repository
-git clone
+git clone https://github.com/Mavisousalima/cotabest-test.git
 
 # Go into the repository
-cd
+cd cotabest-test
 
 # Create a virtual enviroment
 virtualenv venv
