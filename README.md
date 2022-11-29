@@ -25,7 +25,7 @@ Run tests with:
 pytest
 ```
 
-Go to http://localhost:8000/docs to see the application
+Go to http://localhost:8000/docs to see the documentation
 
 <p align="center">
 <img src="https://i.ibb.co/dQ1fjtG/imagem-2022-11-29-121443978.png"

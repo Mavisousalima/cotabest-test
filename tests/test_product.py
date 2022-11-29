@@ -30,6 +30,14 @@ def test_create_product(test_app, monkeypatch):
     assert response.status_code == 201
     assert response.json() == product_response
 
+def test_create_product_invalid(test_app, monkeypatch):
+    product_payload = {
+        "wrong": "field"
+    }
+
+    response = test_app.post("/product/create", data=json.dumps(product_payload))
+    assert response.status_code == 422
+
 def test_get_product(test_app, monkeypatch):
     product_response = {
         "id": 1,
