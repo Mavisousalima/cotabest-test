@@ -28,14 +28,6 @@ class ShoppingCart(Base):
             raise HTTPException(status_code=404, detail="Shopping cart not found")
         return shopping_cart.orders
 
-    # REMOVE
-    @staticmethod
-    def get_list_shopping_cart_paid(user_id: int, db: Session):
-        shopping_cart = db.query(ShoppingCart).filter(
-            ShoppingCart.user_id == user_id,
-            ShoppingCart.completed == True).all()
-        return shopping_cart
-
     @staticmethod
     def create_shopping_cart(amount: int, db: Session):
         shopping_cart = ShoppingCart(amount=amount)

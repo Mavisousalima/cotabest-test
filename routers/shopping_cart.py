@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
-from schemas.product import ProductCreate, ProductID, ProductName
+from schemas.product import ProductID
 from views.shopping_cart import (add_product_to_shopping_cart_view,
                     get_current_shopping_cart_view,
                     remove_product_from_shopping_cart_view,

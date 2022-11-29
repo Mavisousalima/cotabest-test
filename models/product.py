@@ -1,6 +1,6 @@
 from fastapi.exceptions import HTTPException
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
-from sqlalchemy.orm import Session, relationship
+from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy.orm import Session
 
 from database.database import Base
 
@@ -43,14 +43,6 @@ class Product(Base):
             max_availability=max_availability
         )
         db.add(product)
-        db.commit()
-        db.refresh(product)
-        return product
-    
-    @staticmethod
-    def update_product(name: str, price: int, db: Session):
-        product = Product.get_product(name, db)
-        product.price = price
         db.commit()
         db.refresh(product)
         return product
