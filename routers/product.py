@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
-from schemas.product import ProductCreate, ProductID, ProductName
+from schemas.product import ProductCreate
 from views.product import (create_product_view, get_product_view, list_products_view, delete_product_view)
 from database.utils import get_db
 
