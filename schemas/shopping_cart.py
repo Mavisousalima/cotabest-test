@@ -1,10 +1,11 @@
 from pydantic import BaseModel
+import uuid
 
 from models.product import Product
 
 
 class ShoppingCart(BaseModel):
-    id: int
+    id:  str
     product: Product
     shopping_cart_id: int
 
