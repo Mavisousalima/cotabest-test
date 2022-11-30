@@ -75,8 +75,8 @@ def add_product_to_shopping_cart(shopping_cart_id: int, product: ProductID, db: 
             }
         }
     })
-def remove_product_from_shopping_cart(shopping_cart_id: int, product: ProductID, db: Session = Depends(get_db)):
-    remove_product_from_shopping_cart_view(shopping_cart_id, product.id, db)
+def remove_product_from_shopping_cart(shopping_cart_id: int, product: int, db: Session = Depends(get_db)):
+    remove_product_from_shopping_cart_view(shopping_cart_id, product, db)
     return {"message": "Product removed from shopping cart successfully"}
 
 

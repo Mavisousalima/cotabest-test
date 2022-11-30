@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session, relationship
 from database.database import Base
 from .product import Product
 from .order import Order
+from schemas.shopping_cart import ShoppingCart
 
 
 class ShoppingCart(Base):
@@ -26,7 +27,19 @@ class ShoppingCart(Base):
             ShoppingCart.id == shopping_cart_id).first()
         if not shopping_cart:
             raise HTTPException(status_code=404, detail="Shopping cart not found")
-        return shopping_cart.orders
+
+        order = db.query(Order).filter(Order.shopping_cart_id == shopping_cart_id).all()
+        
+        items = []
+        for i in range(len(order)):
+            items.append(db.query(Product).filter(Product.id == order[i].product_id).first())
+
+        shopping_cart_data = {
+            "order": shopping_cart.orders[0].id,
+            "items": items
+        }
+
+        return shopping_cart_data
 
     @staticmethod
     def create_shopping_cart(amount: int, db: Session):
@@ -44,8 +57,8 @@ class ShoppingCart(Base):
             shopping_cart = ShoppingCart.create_shopping_cart(amount, db)
         product = db.query(Product).filter(Product.id == product_id).first()
         if not product:
-            raise HTTPException(status_code=400, detail="Product not found")
-        order = Order.create_order(product_id, shopping_cart.id, db)
+            raise HTTPException(status_code=404, detail="Product not found")
+        order = Order.create_order(shopping_cart.id, product.id, db)
         shopping_cart.orders.append(order)
         db.commit()
         db.refresh(shopping_cart)
@@ -57,13 +70,13 @@ class ShoppingCart(Base):
         shopping_cart = db.query(ShoppingCart).filter(
             ShoppingCart.id == shopping_cart_id).first()
         if not shopping_cart:
-            return shopping_cart
+            raise HTTPException(status_code=404, detail="Shopping cart not found")
         product = db.query(Product).filter(Product.id == product_id).first()
         if not product:
-            raise HTTPException(status_code=400, detail="Product not found")
+            raise HTTPException(status_code=404, detail="Product not found")
         order = Order.get_orders(product_id, shopping_cart.id, db)
         if not order:
-            raise HTTPException(status_code=400, detail="Order not found")
+            raise HTTPException(status_code=404, detail="Order not found")
         for item in order:
             db.delete(item)
         db.commit()

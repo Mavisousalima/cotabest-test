@@ -22,6 +22,7 @@ uvicorn main:app --reload
 Run tests with:
 
 ```bash
+cd tests
 pytest
 ```
 
